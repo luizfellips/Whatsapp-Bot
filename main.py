@@ -1,3 +1,5 @@
+
+import traceback
 from selenium import webdriver
 from time import sleep
 from selenium.webdriver.common.keys import Keys
@@ -15,6 +17,8 @@ for i in range(1,4):
 print('Carregando sistema...')
 sleep(3)
 
+list_of_contacts = ['OLX ZONA SUL','VENDAS PIEDADE/CANDEIAS','COND.PRAIA PIEDADE COMERC','FEIRINHA E SERVIÇOS 2',
+                    'BOA VIAGEM COMPRAS','PRAIA PIEDADE COMERCIAL2','Praia Piedade Comercial']
 ##encontrar contato
 def find_contact(name):
     sfield = driver.find_elements(By.XPATH, '//div[contains(@class,"copyable-text selectable-text")]')
@@ -40,19 +44,16 @@ def send_message(product):
 while True:
     print('...................................')
     sleep(0.5)
-    contact_name = str(input('Contato para enviar: \n> ')).strip()
+    input('Continuar?')
     sleep(1)
-    try:
-        find_contact(contact_name)
-    except:
-        print('Houve um erro, tente novamente')
-    start = input('Enter para começar o envio')
-    for item in database.set_of_products:
-        try:
+    for i in range(0,len(list_of_contacts)):
+        find_contact(list_of_contacts[i])
+        sleep(2)
+        for item in database.set_of_products:
+            print(f'ENVIANDO PARA O GROUP {list_of_contacts[i]}')
+            sleep(1)
             print(f'ENVIANDO {item.name}')
             send_message(item)
             print('ENVIO REALIZADO COM SUCESSO')
             sleep(6)
-        except:
-            print('Houve um erro no envio deste arquivo')
 
