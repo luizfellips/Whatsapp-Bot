@@ -22,5 +22,6 @@ onde  em cada grupo ele enviará todos os produtos respeitando um tempo-limite p
 e ao terminar o envio de todos produtos, irá automaticamente seguir para o próximo grupo.
 .
 O envio dos produtos funciona selecionando elementos interativos do navegador(CSS selector, XPATH, ID, Classes), 
-enviando keys(textos ou imagens) como argumentos, onde os campos de envio serão preenchidos automaticamente e enviados automaticamente.
+enviando keys(textos ou imagens) como argumentos, onde os campos de envio serão preenchidos automaticamente e 
+enviados automaticamente.
 ```
