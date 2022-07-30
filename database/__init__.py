@@ -56,6 +56,37 @@ ControleRemoto = Product('ControleRemoto', 'C:\\Users\\fellip\\PycharmProjects\\
                          'e Panasonic com preço promocional de lançamento '
                          'por apenas R$ 35,00')
 
-set_of_products = {RiomartecR8, XB450, ControleRemoto, KTS1049A,
+noventagraus = Product('90Graus','C:\\Users\\fellip\\PycharmProjects\\interface\\images\\90graus.jpeg','Cabo Carregador preto De Sincronização De Dados Trançado 90 Graus Ângulo Direito para V8 na promoção por apenas R$ 25,00')
+
+ap42 = Product('Cabo AP42','C:\\Users\\fellip\\PycharmProjects\\interface\\images\\ap42.jpeg','Cabo do tipo C nas duas extremidades TOPK AP42 60W para Samsung na promoção e liquidação por apenas R$ 29,00')
+
+bluev9 = Product('Fone BlueV9','C:\\Users\\fellip\\PycharmProjects\\interface\\images\\bluev9.jpeg','Fone de ouvido sem fio Bluetooth V9 com microfone para evitar multas de trânsito e atender suas ligações com comodidade, na promoção por apenas R$ 40,00')
+
+f21 = Product('Fone F21','C:\\Users\\fellip\\PycharmProjects\\interface\\images\\f21.jpeg','Fone de Ouvido Intra-Auricular com Viva-Voz TOPK F21 Modelo Esportivo para Samsung Galaxy S6 na promoção e liquidação por apenas R$ 30,00')
+
+i12 = Product('Fone i12','C:\\Users\\fellip\\PycharmProjects\\interface\\images\\i12.jpeg','Fone de Ouvido i12 Tws  Inpods bluetooth   inpods12 intra-auricular sem fio nas cores Preto, Branco e Rosa com preço promocional de lançamento por apenas R$ 60,00')
+
+iphone5 = Product('Carregador iPhone 5','C:\\Users\\fellip\\PycharmProjects\\interface\\images\\iphone5.jpeg','Carregador Original Da Apple Iphone 5 W Adaptador De Energia Usb Plug Ue Conversor com preço especial de R$ 25,00')
+
+iphone12 = Product('Carregaor iPhone 12','C:\\Users\\fellip\\PycharmProjects\\interface\\images\\iphone12.jpeg','Carregador Original Pd 20 W tipo C Para Apple Iphone 12 Pro Max 12 Mini 11 por R$ 55,00')
+
+reforcado = Product('Carregador reforçado','C:\\Users\\fellip\\PycharmProjects\\interface\\images\\reforcado.jpeg','Cabo Carregador Rápido Usb Tipo C - 1 Metro Reforçado com preço promocional de R$ 30,00')
+
+suportemesa = Product('Suporte de mesa','C:\\Users\\fellip\\PycharmProjects\\interface\\images\\suportemesa.jpeg','Suporte de mesa para Celular na promoção por apenas R$ 15,00')
+
+tipoC = Product('Cabo tipo C','C:\\Users\\fellip\\PycharmProjects\\interface\\images\\tipoC.jpeg','Cabo de carregamento TURBO Tipo C com preço Promocional por apenas R$ 15,00')
+
+topk = Product('Cabo TOPK','C:\\Users\\fellip\\PycharmProjects\\interface\\images\\topk.jpeg','Cabo Tipo-C TOPK AM21 1M de Náilon Trançado Magnético com Luz LED Indicadora para iPhone na promoção e liquidação por apenas R$ 35,00')
+
+Treqa = Product('Fone Treqa','C:\\Users\\fellip\\PycharmProjects\\interface\\images\\Treqa.jpeg','Fone de ouvido Treqa de excelente qualidade na promoção por apenas R$ 25,00')
+
+X9 = Product('Fone X9','C:\\Users\\fellip\\PycharmProjects\\interface\\images\\X9.jpeg','Fone de ouvido com microfone X9 mini 5.0 bluetooth sem fio fones handsfree estéreo de excelente qualidade na promoção por apenas R$ 25,00')
+
+Y50 = Product('Fone Y50','C:\\Users\\fellip\\PycharmProjects\\interface\\images\\Y50.jpeg','Fone De Ouvido Sem Fio Bluetooth 5.0 Tws2 Y50 5a Alta Qualidade Com Compartimento de carregamento com preço promocional por apenas R$ 60,00')
+
+
+
+set_of_products = {Y50,X9,Treqa,suportemesa,reforcado,topk,i12,f21,bluev9,ap42,noventagraus,
+                   iphone5,iphone12,tipoC,RiomartecR8, XB450, ControleRemoto, KTS1049A,
                    MagnetCharger, LumiLed, Y30,
                    BombaEletronica, Sw120, Tesoura, ADots3, AirD2}
