@@ -47,19 +47,14 @@ while True:
     input('Continuar?')
     sleep(1)    
     for i in range(0,len(list_of_contacts)):
-        try:
-            find_contact(list_of_contacts[i])
-            sleep(2)
-            for item in database.set_of_products:
-                try:
-                    print(f'ENVIANDO PARA O GROUP {list_of_contacts[i]}')
-                    sleep(1)
-                    print(f'ENVIANDO {item.name}')
-                    send_message(item)
-                    print('ENVIO REALIZADO COM SUCESSO')
-                    sleep(6)
-                except Exception:
-                    traceback.print_exc()
-        except Exception:
-            traceback.print_exc()
+        find_contact(list_of_contacts[i])
+        sleep(2)
+        print(f'ENVIANDO PARA O GROUP {list_of_contacts[i]}')
+        for item in database.set_of_products:
+            sleep(1)
+            print(f'ENVIANDO {item.name}')
+            send_message(item)
+            print('ENVIO REALIZADO COM SUCESSO')
+            print('------------------------')
+            sleep(6)
 
