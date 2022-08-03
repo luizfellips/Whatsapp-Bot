@@ -1,5 +1,4 @@
 
-import traceback
 from selenium import webdriver
 from time import sleep
 from selenium.webdriver.common.keys import Keys
@@ -47,14 +46,20 @@ while True:
     input('Continuar?')
     sleep(1)    
     for i in range(0,len(list_of_contacts)):
-        find_contact(list_of_contacts[i])
-        sleep(2)
-        print(f'ENVIANDO PARA O GROUP {list_of_contacts[i]}')
-        for item in database.set_of_products:
-            sleep(1)
-            print(f'ENVIANDO {item.name}')
-            send_message(item)
-            print('ENVIO REALIZADO COM SUCESSO')
-            print('------------------------')
-            sleep(6)
+        try:
+            find_contact(list_of_contacts[i])
+            sleep(2)
+            print(f'ENVIANDO PARA O GROUP {list_of_contacts[i]}')
+            for item in database.set_of_products:
+                sleep(1)
+                print(f'ENVIANDO {item.name}')
+                try:
+                    send_message(item)
+                    print('ENVIO REALIZADO COM SUCESSO')
+                    print('------------------------')
+                    sleep(6)
+                except:
+                    print('ERRO AO ENVIAR')
+        except:
+            print('Erro ao enviar')
 
