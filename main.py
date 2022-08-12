@@ -31,7 +31,7 @@ def send_message(product):
     attach = driver.find_element(By.CSS_SELECTOR, "input[type='file']")
     sleep(2)
     attach.send_keys(product.loc)
-    sleep(3)
+    sleep(4)
     sfield = driver.find_elements(By.XPATH, '//div[contains(@class,"copyable-text selectable-text")]')
     sfield[0].click()
     sfield[0].send_keys(product.description)
