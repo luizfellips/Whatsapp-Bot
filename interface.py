@@ -1,51 +1,137 @@
+from cmath import isnan, nan
 from tkinter import *
 from tkinter import ttk
-import database
+from tkinter.filedialog import askopenfilename
+import pandas as pd
 
 
 class MainApplication:
+    
+    def update_contact_database(self,event):
+        try:
+            self.textbox.delete('1.0', END)
+            contact_name = self.contactname.get()
+            if contact_name == '':
+                self.textbox.insert('1.0','ERROR')
+            else:
+                self.contacts_df = pd.read_excel('contacts.xlsx')
+                self.contacts_df.loc[len(self.products_df)] = contact_name
+                self.contacts_df.to_excel('contacts.xlsx',index=False)
+                self.textbox.insert('1.0','SUCCESS')
+        except:
+            self.textbox.insert('1.0','ERROR')
+        
+        
+    def update_product_database(self,event):
+        try:
+            self.textbox.delete('1.0', END)
+            description = self.description.get()
+            price = self.price.get()
+            file = self.filenameentry.get()
+            if description == '' or price == '' or file == '':
+                self.textbox.insert('1.0','ERROR')
+            else:
+                self.products_df = pd.read_excel('products.xlsx')     
+                row = (file,description,price)
+                self.products_df.loc[len(self.products_df)] = row
+                self.products_df.to_excel('products.xlsx',index=False)
+                self.textbox.insert('1.0','SUCCESS')
+        except:
+            self.textbox.insert('1.0','ERROR')
+        
+        
+    def insert_infos(self,event):
+        self.products_df = pd.read_excel('products.xlsx')
+        self.contacts_df = pd.read_excel('contacts.xlsx')
+        try:
+            self.main_tree.delete(*self.main_tree.get_children())
+            self.contact_tree.delete(*self.contact_tree.get_children())
+        finally:
+            descriptions = self.products_df['DESCRIPTION'].tolist()
+            sorted_descriptions = sorted(descriptions)
+            prices = self.products_df['PRICE'].tolist()
+            for i in range(0,len(self.products_df)):
+                entire_list = (sorted_descriptions[i],f'R${prices[i]}.00')
+                self.main_tree.insert('',END,values=entire_list,tags=('oddrow',))
+                self.main_tree.tag_configure('oddrow',background='#99FF66',foreground='black')
+                
+            contactlist = self.contacts_df['CONTACTS'].tolist()
+            for i in range(0,len(self.contacts_df)):
+                self.contact_tree.insert('',END,values=(contactlist[i],'-'),tags=('oddrow',))
+                self.contact_tree.tag_configure('oddrow',background='#99FF66',foreground='black')
+            
+        
+    
+    def clear_textbox(self,event):
+        self.textbox.delete('1.0', END)
+        
+    
+    def browsefunc(self,event):
+        filename = askopenfilename(filetypes=(("jpeg files","*.jpeg"),("png files","*.png"),("All files","*.*")))
+        self.filenameentry.insert(END, filename) # add this
+    
+    
+    
+    
     def __init__(self,toplevel):
+        
+        
         self.frame = Frame(toplevel).grid()
         columns = ('desc','pri')
         style = ttk.Style(root)
         style.theme_use("clam")
-        style.configure("Treeview", background="#45458B", 
-                fieldbackground="#45458B", foreground="white")
+        style.configure("Treeview", background="##99FF66", 
+                fieldbackground="##99FF66", foreground="black")
+        
+        style.configure("Treeview.Heading", background="black", 
+                fieldbackground="black", foreground="#99FF66")
         
         ###titulos
-        title = Label(self.frame,text='Whatsapp Automatic Sending',font=('Verdana',18,'bold'),background='gray',fg='white',borderwidth=2).place(x=27,y=10)
-        driverlabel = Label(self.frame,text='Load Driver',font=('Helvetica',13,'bold'),background='gray',fg='white',border=2).place(x=27,y=45)
-        alertboxtext = Label(self.frame,text='Process Alert Box',font=('Helvetica',13,'bold'),background='gray',fg='white',border=2).place(x=27,y=95)
-        treedatabasetitle = Label(self.frame,text='DATABASE',font=('Helvetica',20,'bold'),background='gray',fg='white').place(x=250,y=85)
-        startsendtitle = Label(self.frame,text='START PROGRAM',font=('Helvetica',13,'bold'),background='gray',fg='white').place(x=27,y=300)
-        grouplisttitle = Label(self.frame,text='CONTACT LIST',font=('Helvetica',20,'bold'),background='gray',fg='white').place(x=890,y=85)
-        addcontacttitle = Label(self.frame,text='ADD CONTACT',font=('Helvetica',13,'bold'),background='gray',fg='white').place(x=890,y=350)
-        addproducttitle = Label(self.frame,text='ADD PRODUCT',font=('Helvetica',13,'bold'),background='gray',fg='white').place(x=250,y=350)
-        productnametitle = Label(self.frame,text='Description',font=('Helvetica',10,'bold'),background='gray',fg='white').place(x=250,y=370)
-        productpricetitle = Label(self.frame,text='Price',font=('Helvetica',10,'bold'),background='gray',fg='white').place(x=450,y=370)
+        title = Label(self.frame,text='Whatsapp Automatic Sending',font=('Verdana',18,'bold'),background='black',fg='#99FF66',borderwidth=2).place(x=27,y=10)
+        driverlabel = Label(self.frame,text='Load Driver',font=('Helvetica',13,'bold'),background='black',fg='#99FF66',border=2).place(x=27,y=45)
+        alertboxtext = Label(self.frame,text='Alert Box',font=('Helvetica',13,'bold'),background='black',fg='#99FF66',border=2).place(x=27,y=98)
+        treedatabasetitle = Label(self.frame,text='DATABASE',font=('Helvetica',20,'bold'),background='black',fg='#99FF66').place(x=250,y=85)
+        startsendtitle = Label(self.frame,text='START PROGRAM',font=('Helvetica',13,'bold'),background='black',fg='#99FF66').place(x=27,y=300)
+        grouplisttitle = Label(self.frame,text='CONTACT LIST',font=('Helvetica',20,'bold'),background='black',fg='#99FF66').place(x=890,y=85)
+        addcontacttitle = Label(self.frame,text='ADD CONTACT',font=('Helvetica',13,'bold'),background='black',fg='#99FF66').place(x=890,y=350)
+        addproducttitle = Label(self.frame,text='ADD PRODUCT',font=('Helvetica',13,'bold'),background='black',fg='#99FF66').place(x=250,y=350)
+        productnametitle = Label(self.frame,text='Description',font=('Helvetica',10,'bold'),background='black',fg='#99FF66').place(x=250,y=370)
+        productpricetitle = Label(self.frame,text='Price',font=('Helvetica',10,'bold'),background='black',fg='#99FF66').place(x=450,y=370)
+        productpicturetitle = Label(self.frame,text='File(.jpeg or .png)',font=('Helvetica',10,'bold'),background='black',fg='#99FF66').place(x=250,y=415)
+        
+        
         ###widgets
         self.openwindowbutton = Button(self.frame,text='LOAD',
-                                       fg='black',bg='white',
+                                       fg='#99FF66',bg='black',relief='groove',
                                        width=15)
         self.openwindowbutton.place(x=30,y=70)
-        self.textbox = Text(self.frame,width=18,height=7)
+        self.textbox = Text(self.frame,width=18,font=('Helvetica'),height=7,fg='#99FF66',bg='black',highlightcolor='pink',highlightthickness=2)
         self.textbox.place(x=30,y=120)
-        self.cleartextbutton = Button(self.frame,text='CLEAR',fg='black',bg='white',width=13)
-        self.cleartextbutton.place(x=50,y=240)
-        self.startbutton = Button(self.frame,text='START',fg='black',bg='white',width=13)
+        self.cleartextbutton = Button(self.frame,text='CLEAR',fg='#99FF66',bg='black',relief='groove',width=13)
+        self.cleartextbutton.place(x=50,y=260)
+        self.cleartextbutton.bind('<Button-1>',self.clear_textbox)
+        self.startbutton = Button(self.frame,text='START',fg='#99FF66',bg='black',relief='groove',width=13)
         self.startbutton.place(x=50,y=322)
         self.description = Entry(self.frame)
         self.description.place(x=250,y=390)
         self.price = Entry(self.frame,width=10)
         self.price.place(x=450,y=390)
-        self.addproductbutton = Button(self.frame,text='ADD',fg='black',bg='white',width=10)
+        self.addproductbutton = Button(self.frame,text='ADD',fg='#99FF66',bg='black',relief='groove',width=10)
         self.addproductbutton.place(x=520,y=387)
+        self.addproductbutton.bind('<Button-1>',self.update_product_database)
         self.contactname = Entry(self.frame)
         self.contactname.place(x=890,y=370)
-        self.addcontactbutton = Button(self.frame,text='ADD',fg='black',bg='white',width=8)
+        self.addcontactbutton = Button(self.frame,text='ADD',fg='#99FF66',bg='black',relief='groove',width=8)
         self.addcontactbutton.place(x=1020,y=368)
-        self.updatetreebutton = Button(self.frame,text='UPDATE',fg='black',bg='WHITE')
+        self.addcontactbutton.bind('<Button-1>',self.update_contact_database)
+        self.updatetreebutton = Button(self.frame,text='UPDATE',fg='#99FF66',bg='black',relief='groove')
         self.updatetreebutton.place(x=476,y=92)
+        self.updatetreebutton.bind('<Button-1>',self.insert_infos)
+        self.filenameentry = Entry(self.frame,width=30)
+        self.filenameentry.place(x=250,y=440)
+        self.addfilelocation = Button(self.frame,text='BROWSE',fg='#99FF66',bg='black',relief='groove')
+        self.addfilelocation.place(x=440,y=438)
+        self.addfilelocation.bind('<Button-1>',self.browsefunc)
 
         
         ##trees
@@ -54,20 +140,10 @@ class MainApplication:
         self.main_tree.heading('pri',text='Price',anchor=CENTER)
         self.main_tree.column('desc',width=500,anchor=W)
         self.main_tree.column('pri',width=100,anchor=CENTER)
-        for item in database.set_of_products:
-            value = f'R${item.price},00' 
-            self.main_tree.insert('',END,values=(item.description,value),tags=('oddrow'))
-            self.main_tree.tag_configure('oddrow',background='#45458B',foreground='white')
         self.main_tree.place(x=250,y=120)
         
-        self.contact_tree = ttk.Treeview(self.frame,columns=('contact','index'),show='headings')
+        self.contact_tree = ttk.Treeview(self.frame,columns=('contact'),show='headings')
         self.contact_tree.heading('contact',text='CONTACTS')
-        self.contact_tree.heading('index',text='INDEX')
-        self.contact_tree.column('index',width=40,anchor=CENTER)
-        for count,item in enumerate(database.list_of_contacts,start=1):
-            value = f'{item}'
-            self.contact_tree.insert('',END,values=(value,count),tags=('oddrow'))
-            self.contact_tree.tag_configure('oddrow',background='#45458B',foreground='white')
         self.contact_tree.place(x=890,y=120)
         
         
@@ -77,6 +153,6 @@ class MainApplication:
 if __name__ == '__main__':
     root = Tk()
     MainApplication(root)
-    root.geometry('1200x450')
-    root.configure(background='gray')
+    root.geometry('1200x480')
+    root.configure(background='black')
     root.mainloop()
