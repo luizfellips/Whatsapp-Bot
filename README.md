@@ -1,8 +1,12 @@
 # Automação de Envios de Mídia/Descrição por Whatsapp Web
-![badge](https://img.shields.io/badge/STATUS-EM%20DESENVOLVIMENTO-brightgreen)
+![badge](https://img.shields.io/badge/STATUS-APRIMORANDO%20-brightgreen)
 
->> Esse mini-projeto funciona utlizando a biblioteca Selenium para interação com elementos do navegador e
-utlização de classes(POO) para montar um objeto/produto com seu nome, descrição e local de armazenamento da mídia(em string).
+<img src ='https://user-images.githubusercontent.com/110192027/184501945-6bed82f8-aad2-464f-a012-ee3518472084.png' alt='print1' width=600>
+<img src='https://user-images.githubusercontent.com/110192027/184501944-541994d4-5ad5-439f-a8f7-6e8325d9ad61.png' alt='print2' width=600>
+
+>> Esse mini-projeto funciona utlizando a biblioteca Selenium para interação com elementos do navegador, e originalmente utilizava
+classes(POO) para montar um objeto/produto com seu nome, descrição e local de armazenamento da mídia(em string).
+Porém agora utiliza Pandas e planilhas Excel para armazenar seus dados.
 
 ### UTILIZANDO O PROGRAMA
 - Inicialize o código e logue na sua conta do WhatsWeb com o código QR do celular
