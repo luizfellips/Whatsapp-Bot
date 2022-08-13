@@ -2,10 +2,64 @@ from cmath import isnan, nan
 from tkinter import *
 from tkinter import ttk
 from tkinter.filedialog import askopenfilename
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+from time import sleep
 import pandas as pd
 
 
+
 class MainApplication:
+    
+    def load_driver(self,event):
+        self.driver = webdriver.Chrome()
+        self.driver.get('https://web.whatsapp.com')
+        self.wait = WebDriverWait(self.driver,10)
+        self.textbox.insert('1.0', 'Login to your account and start program')
+        
+    def find_contact(self,name):
+        sfield = self.driver.find_elements(By.XPATH, '//div[contains(@class,"copyable-text selectable-text")]')
+        sfield[0].click()
+        sfield[0].send_keys(name)
+        sfield[0].send_keys(Keys.ENTER)
+        
+    
+    def send_message(self,filename,description):
+        self.driver.find_element(By.CSS_SELECTOR, "span[data-icon='clip']").click()
+        attach = self.driver.find_element(By.CSS_SELECTOR, "input[type='file']")
+        sleep(4)
+        attach.send_keys(filename)
+        sleep(4)
+        sfield = self.driver.find_elements(By.XPATH, '//div[contains(@class,"copyable-text selectable-text")]')
+        sfield[0].click()
+        sfield[0].send_keys(description)
+        sleep(4)
+        send = self.driver.find_element(By.CSS_SELECTOR, "span[data-icon='send']")
+        send.click()
+        
+    
+    def start_program(self,event):
+        
+        self.products_df = pd.read_excel('products.xlsx')
+        self.contacts_df = pd.read_excel('contacts.xlsx')
+        locationslist = self.products_df['LOCATION'].tolist()
+        descriptionslist = self.products_df['DESCRIPTION'].tolist()
+        
+        for i in range(0,len(self.contacts_df)):
+            self.find_contact(self.contacts_df.loc[i,'CONTACTS'])
+            sleep(3)
+            for a in range(0,len(locationslist)):
+                self.send_message(locationslist[a],descriptionslist[a])
+                sleep(7)
+            
+                    
+            
+            
+    
+    
     
     def update_contact_database(self,event):
         try:
@@ -101,10 +155,11 @@ class MainApplication:
         
         
         ###widgets
-        self.openwindowbutton = Button(self.frame,text='LOAD',
+        self.loaddriverbutton = Button(self.frame,text='LOAD',
                                        fg='#99FF66',bg='black',relief='groove',
                                        width=15)
-        self.openwindowbutton.place(x=30,y=70)
+        self.loaddriverbutton.place(x=30,y=70)
+        self.loaddriverbutton.bind('<Button-1>',self.load_driver)
         self.textbox = Text(self.frame,width=18,font=('Helvetica'),height=7,fg='#99FF66',bg='black',highlightcolor='pink',highlightthickness=2)
         self.textbox.place(x=30,y=120)
         self.cleartextbutton = Button(self.frame,text='CLEAR',fg='#99FF66',bg='black',relief='groove',width=13)
@@ -112,6 +167,7 @@ class MainApplication:
         self.cleartextbutton.bind('<Button-1>',self.clear_textbox)
         self.startbutton = Button(self.frame,text='START',fg='#99FF66',bg='black',relief='groove',width=13)
         self.startbutton.place(x=50,y=322)
+        self.startbutton.bind('<Button-1>',self.start_program)
         self.description = Entry(self.frame)
         self.description.place(x=250,y=390)
         self.price = Entry(self.frame,width=10)
