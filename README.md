@@ -9,23 +9,12 @@ classes(POO) para montar um objeto/produto com seu nome, descrição e local de 
 Porém agora utiliza Pandas e planilhas Excel para armazenar seus dados.
 
 ### UTILIZANDO O PROGRAMA
-- Inicialize o código e logue na sua conta do WhatsWeb com o código QR do celular
-- é importante que você entre em pelo menos um grupo antes de começar os envios, para fechar banners do próprio Whatsapp que podem entrar em conflito com o funcionamento.
-- No terminal aparecerá a mensagem "Continuar?", Ao apertar enter, ele irá percorrer pelos grupos listados na variável list_of_contacts e enviar todos os produtos cadastrados na database.
+- Inicialize o interface.py
+- Nesta interface você pode adicionar produtos, onde insere a descrição no campo DESCRIPTION, preço no campo PRICE, e procura pela imagem a ser carregada no campo File. Ao adicionar, o produto é automaticamente inserido na planilha products.xlsx.
+- Você também pode adicionar contatos, inserindo seu nome exato e adicionando. São inseridos na planilha contatos.xlsx
+- Ao clicar em Load(Load Driver), uma nova instância do Google Chrome será inicializada e você precisará conectar na sua conta do Whatsapp Web pelo QR Code.
+- Entre em ao menos um grupo que possua mensagens temporárias para remover o aviso, para não conflictar com o algoritmo do robô na hora dos envios.
+- Por fim, basta clicar em Start Program, e manter a janela do Whatsapp sempre na frente, para não causar erros.
+- Todos os produtos cadastrados serão enviados para cada grupo cadastrado.
 
 
-### COMO FUNCIONA
-```
-O programa abre uma nova instância do navegador do Google Chrome e redireciona automaticamente para o site do Whatsapp Web, 
-onde o usuário deve logar com sua conta pelo QR code,
-durante esse processo o programa estará em standby no terminal até que você esteja conectado.
-.
-De acordo com uma lista de grupos pré-determinada,
-para cada grupo nessa lista o programa irá percorrer por um grupo de cada vez,
-onde  em cada grupo ele enviará todos os produtos respeitando um tempo-limite para evitar banimento, 
-e ao terminar o envio de todos produtos, irá automaticamente seguir para o próximo grupo.
-.
-O envio dos produtos funciona selecionando elementos interativos do navegador(CSS selector, XPATH, ID, Classes), 
-enviando keys(textos ou imagens) como argumentos, onde os campos de envio serão preenchidos automaticamente e 
-enviados automaticamente.
-```
